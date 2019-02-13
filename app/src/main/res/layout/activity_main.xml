@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingTop="10dp"
+    android:paddingRight="10dp"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:background="@drawable/pattern">
+
+    <ImageView
+        android:id="@+id/up"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/down"
+        android:layout_marginTop="23dp"
+        app:srcCompat="@drawable/up" />
+
+    <ImageView
+        android:id="@+id/right"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/up"
+        android:layout_marginRight="13dp"
+        app:srcCompat="@drawable/right" />
+
+    <ImageView
+        android:id="@+id/down"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/right"
+        android:layout_toLeftOf="@+id/right"
+        app:srcCompat="@drawable/down" />
+
+    <ImageView
+        android:id="@+id/left"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/up"
+        android:layout_toLeftOf="@+id/stop"
+        app:srcCompat="@drawable/left" />
+
+    <ImageView
+        android:id="@+id/stop"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/up"
+        android:layout_toLeftOf="@+id/right"
+        app:srcCompat="@drawable/stop" />
+
+    <SurfaceView
+        android:id="@+id/surfaceView"
+        android:layout_width="370dp"
+        android:layout_height="match_parent" />
+
+    <Button
+        android:gravity="center"
+        android:id="@+id/connect"
+        android:layout_width="200dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/down"
+        android:layout_toRightOf="@+id/surfaceView"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="35dp"
+        android:text="Connect"
+        android:background="#e521cbe9"
+        android:textColor="#000000"
+        android:textStyle="bold"/>
+</RelativeLayout>

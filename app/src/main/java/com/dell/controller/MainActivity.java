@@ -1,5 +1,7 @@
 package com.dell.controller;
 
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
@@ -10,6 +12,12 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.MediaController;
+import android.widget.VideoView;
+
+import com.pedro.vlc.VlcListener;
+import com.pedro.vlc.VlcVideoLibrary;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -19,12 +27,14 @@ import java.net.UnknownHostException;
 import java.util.Scanner;
 
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements VlcListener {
 
-    SurfaceView surface;
+    VideoView videoView;
+    SurfaceView surfaceView;
     Button connection;
     ImageView btnup,btndown,btnleft,btnright,btnstop;
     String ssid, key;
+    VlcVideoLibrary vlcVideoLibrary;
 
     String cmd = "";
 
@@ -39,7 +49,10 @@ public class MainActivity extends AppCompatActivity{
         btnright=findViewById(R.id.right);
         btnstop=findViewById(R.id.stop);
         connection=findViewById(R.id.connect);
-        surface=findViewById(R.id.surfaceView);
+        surfaceView=findViewById(R.id.video_view);
+        newLib();
+//        videoView=findViewById(R.id.video_view);
+//        setVideoStreaming();
 
         btnup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +116,61 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
+    private void newLib() {
+        String videoUrl = "rtsp://192.168.5.1:8554/test.mp4";
+        vlcVideoLibrary = new VlcVideoLibrary(this, this, surfaceView);
+        vlcVideoLibrary.play(videoUrl);
+    }
 
+    private void setVideoStreaming() {
+        MediaController mediaController = new MediaController(this);
+
+        String videoUrl = "rtsp://192.168.5.1:8554/test.mp4";
+
+        //videoUrl = "rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov";
+
+        mediaController.setAnchorView(videoView);
+        final Uri uri = Uri.parse(videoUrl);
+        videoView.setVideoURI(uri);
+        videoView.setMediaController(mediaController);
+        videoView.requestFocus();
+        videoView.start();
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+
+                try {
+                    mp.setDataSource(MainActivity.this, uri);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                mp.start();
+
+
+                //pdialog.dismiss();
+                mp.setOnVideoSizeChangedListener(new MediaPlayer.OnVideoSizeChangedListener() {
+
+                    @Override
+                    public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
+
+                        mp.start();
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
+    public void onComplete() {
+        Log.e("Manav", "OnComplete");
+    }
+
+    @Override
+    public void onError() {
+        Log.e("Manav", "OnError");
+        vlcVideoLibrary.stop();
+    }
 
     private class DownloadFilesTask extends AsyncTask<Void, Void, Void> {
         @Override

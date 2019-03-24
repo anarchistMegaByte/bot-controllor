@@ -19,7 +19,7 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="2">
+        android:layout_weight="5">
         <SurfaceView
             android:id="@+id/video_view"
             android:layout_width="match_parent"
@@ -29,11 +29,11 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="3">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="8dp">
+            android:layout_margin="2dp">
             <ImageView
                 android:id="@+id/up"
                 android:layout_width="70dp"

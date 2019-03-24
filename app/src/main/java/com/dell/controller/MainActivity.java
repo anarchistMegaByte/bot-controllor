@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements VlcListener {
 
     VideoView videoView;
     SurfaceView surfaceView;
-    Button connection;
+//    Button connection;
     ImageView btnup,btndown,btnleft,btnright,btnstop;
     String ssid, key;
     VlcVideoLibrary vlcVideoLibrary;
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements VlcListener {
         btnleft=findViewById(R.id.left);
         btnright=findViewById(R.id.right);
         btnstop=findViewById(R.id.stop);
-        connection=findViewById(R.id.connect);
+//        connection=findViewById(R.id.connect);
         surfaceView=findViewById(R.id.video_view);
         newLib();
 //        videoView=findViewById(R.id.video_view);
@@ -100,20 +100,20 @@ public class MainActivity extends AppCompatActivity implements VlcListener {
             }
         });
 
-        connection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                WifiConfiguration wifiConfig = new WifiConfiguration();
-                wifiConfig.SSID = String.format("\"%s\"", ssid);
-                wifiConfig.preSharedKey = String.format("\"%s\"", key);
-
-                WifiManager wifiManager = (WifiManager)getApplicationContext().getSystemService(WIFI_SERVICE);
-                int netId = wifiManager.addNetwork(wifiConfig);
-                wifiManager.disconnect();
-                wifiManager.enableNetwork(netId, true);
-                wifiManager.reconnect();
-            }
-        });
+//        connection.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                WifiConfiguration wifiConfig = new WifiConfiguration();
+//                wifiConfig.SSID = String.format("\"%s\"", ssid);
+//                wifiConfig.preSharedKey = String.format("\"%s\"", key);
+//
+//                WifiManager wifiManager = (WifiManager)getApplicationContext().getSystemService(WIFI_SERVICE);
+//                int netId = wifiManager.addNetwork(wifiConfig);
+//                wifiManager.disconnect();
+//                wifiManager.enableNetwork(netId, true);
+//                wifiManager.reconnect();
+//            }
+//        });
     }
 
     private void newLib() {
